@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<!--
+    Build script for the MILO Projects.
+-->
+
+<project name="careers" basedir="." >
+
+  <!-- ================================================================ -->
+  <!-- GENERAL CONFIG                                                   -->
+  <!-- ================================================================ -->
+  <property file="build.override.properties" />
+  <property file="build.properties" />
+
+  <path id="compile.classpath">
+    <fileset dir="${build.libhome}">
+      <include name="*.jar" />
+    </fileset>
+    <fileset dir="${lib.home}">
+      <include name="*.jar" />
+    </fileset>
+  </path>
+
+
+  <!-- ================================================================ -->
+  <!-- SETUP                                                            -->
+  <!-- ================================================================ -->
+  <target name="init" description="Setup dirs and copy files into build tree">
+  <!-- Create build directories as needed -->
+    <mkdir dir="${build.home}" />
+    <mkdir dir="${build.app.home}" />
+
+    <copy todir="${build.app.home}">
+      <fileset dir="${app.data.home}">
+        <include name="config/**" />    
+      	<include name="xml/**" />
+      </fileset>
+    </copy>
+
+  </target>
+
+  <target name="build" depends="init" description="Compile Java sources">
+    <!-- Compile Java classes as necessary -->
+    <javac srcdir="${src.home}" sourcepath="" listfiles="true"
+        destdir="${build.app.home}/classes" >
+      <classpath refid="compile.classpath" />
+      <include name="com/milo/**/*.java" />
+    </javac>
+  </target>
+
+  <target name="dist" depends="build" description="create jar files">
+    <!-- Compile Java classes as necessary -->
+    <javac srcdir="${src.home}" 
+        destfile="${dist.jar}">
+    </javac>
+  </target>
+</project>

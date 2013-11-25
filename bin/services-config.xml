@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+<bean class="com.milo.entity.Term" name="Term">
+<property name="meaning" value="slow"></property>
+<property name="value" value="adagio"></property>
+</bean>
+    <bean id="wordDao" class="com.milo.entity.JDBCWordDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- the DataSource (parameterized for configuration via a PropertyPlaceHolderConfigurer) -->
+    <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="org.gjt.mm.mysql.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost/word_bank"/>
+        <property name="username" value="root"/>
+        <property name="password" value="password"/>
+    </bean>
+
+
+</beans>

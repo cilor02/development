@@ -77,13 +77,13 @@ public class Angles {
 //				g.drawLine(200, 300, (int)(200+dispX), (int)(300 + dispY));
 //				g.drawLine(200, 300, 400, 300);
 //			}
-//			Point2D firstPoint = new Point2D.Double(300,300);	
-//			for(int j=6;j<12;j++)
-//			{
-//				Polygon p3 = new Polygon(j,200,firstPoint);
-//				p3.draw((Graphics2D)g);
-//			}
-//
+			Point2D firstPoint = new Point2D.Double(300,300);	
+			for(int j=6;j<12;j++)
+			{
+				Polygon p3 = new Polygon(j,200,firstPoint);
+				p3.draw((Graphics2D)g);
+			}
+
 //			Circle circle = new Circle(firstPoint,100);
 //			circle.draw((Graphics2D)g);
 //			

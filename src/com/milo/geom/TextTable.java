@@ -7,14 +7,28 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
-public class Grid{
+public class TextTable{
 
 	private int unit;
 	private int height;
 	private int width;
-	public Grid( int unit, int height, int width) {
+	
+	private Map<String, List<String>> rows;
+	private List <String> headings;
+	
+	public TextTable(Map<String, List<String>> rows, List<String> headings, int unit){
+		this.unit = unit;
+		this.rows = rows;
+		this.headings = headings;
+		height = this.rows.size();
+		width = this.headings.size();
+	}
+	
+	public TextTable( int unit, int height, int width) {
         this.height = height;
         this.width = width;
 		this.unit= unit;

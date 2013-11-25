@@ -20,7 +20,7 @@ public class MovingBox implements Drawable,Animatable{
 	private double dispX;
 	private double dispY;
 	private double maxVertPos;
-	private double maxHorizpos;
+	private double minHorizpos;
 	public MovingBox()
 	{
 
@@ -39,9 +39,9 @@ public class MovingBox implements Drawable,Animatable{
    
 		mainPoint=new Point2D.Double(mainPointX,mainPointY);
 		
-        restrictionMainPoint = new Point2D.Double(mainPoint.getX(),mainPoint.getY());
-		maxHorizpos=restrictionMainPoint.getX()+restrictionWidth;
-		maxVertPos=restrictionMainPoint.getY()-restrictionHeight;
+        restrictionMainPoint = new Point2D.Double(mainPoint.getX() + restrictionWidth,mainPoint.getY() + restrictionHeight);
+		minHorizpos=restrictionMainPoint.getX();
+		maxVertPos=restrictionMainPoint.getY()+restrictionHeight;
 	}
 	public void animate() {
 		// TODO Auto-generated method stub
@@ -49,25 +49,25 @@ public class MovingBox implements Drawable,Animatable{
 		mainPoint.setLocation(mainPoint.getX()+dispX, mainPoint.getY()+dispY);
 		//check for collision with boundaries
 		
-		if(mainPoint.getY()<=maxVertPos)
+		if(mainPoint.getY()<=0)
 		{
-			mainPoint.setLocation(mainPoint.getX(), maxVertPos);
+			mainPoint.setLocation(mainPoint.getX(), 0);
 			dispY*=-1.0;
 		}
-		if (mainPoint.getX()>=maxHorizpos)
+		if (mainPoint.getX()<=0)
 		{
-			mainPoint.setLocation(maxHorizpos, mainPoint.getY());
+			mainPoint.setLocation(0, mainPoint.getY());
 			dispX*=-1.0;
 		}
 		
-		if(mainPoint.getY()>=restrictionMainPoint.getY())
+		if(mainPoint.getY()  >= restrictionHeight - boxHeight)
 		{
-			mainPoint.setLocation(mainPoint.getX(), restrictionMainPoint.getY());
+			mainPoint.setLocation(mainPoint.getX(), restrictionHeight - boxHeight);
 			dispY*=-1.0;
 		}
-		if (mainPoint.getX()<=restrictionMainPoint.getX())
+		if (mainPoint.getX()>=restrictionWidth - boxWidth)
 		{
-			mainPoint.setLocation(restrictionMainPoint.getX(), mainPoint.getY());
+			mainPoint.setLocation(restrictionWidth - boxWidth, mainPoint.getY());
 			dispX*=-1.0;
 		}
 	}
@@ -79,7 +79,7 @@ public class MovingBox implements Drawable,Animatable{
 
 	public void draw(Graphics2D g2D) {
 		// TODO Auto-generated method stub
-		g2D.draw(new Rectangle2D.Double(mainPoint.getX(),mainPoint.getY()-boxHeight,boxWidth,boxHeight));
+		g2D.draw(new Rectangle2D.Double(mainPoint.getX(),mainPoint.getY(),boxWidth,boxHeight));
 		
 		}
 	}
